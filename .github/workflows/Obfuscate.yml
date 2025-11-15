@@ -23,21 +23,13 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Cache Node modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-
       - name: Install javascript-obfuscator
         run: |
           npm install javascript-obfuscator
 
       - name: Download BPB worker JS
         run: |
-          curl -L \
-          https://raw.githubusercontent.com/bia-pain-bache/BPB-Worker-Panel/main/build/unobfuscated-worker.js \
-          -o origin.js
+          curl -L https://raw.githubusercontent.com/bia-pain-bache/BPB-Worker-Panel/main/build/unobfuscated-worker.js -o origin.js
 
       - name: Obfuscate BPB worker js
         run: |
@@ -59,6 +51,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           branch: main
-          commit_message: ":arrow_up: update latest bpb panel"
+          commit_message: ":arrow_up: update obfuscated worker"
           commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
           skip_dirty_check: true
